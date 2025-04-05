@@ -4,8 +4,10 @@ import {
   Boxes,
   LayoutTemplateIcon,
   LifeBuoy,
+  Link,
   LucideIcon,
   Settings,
+  Table,
   TagsIcon,
   UserCircle,
 } from "lucide-react";
@@ -17,15 +19,29 @@ import { SidebarProvider } from "~/contexts/SidebarContext";
 
 const Dashboard = () => {
   const menus = [
-    { icon: BarChart3, text: "Layouts", to: "statistics" },
+    {
+      icon: BarChart3,
+      text: "Layouts",
+      children: [
+        { text: "Normal Table", to: "dashboard/layout1" },
+        { text: "DataTable", to: "dashboard/layout2" },
+        { text: "DataTable with Filters", to: "dashboard/layout3" },
+      ],
+    },
     { icon: BarChart3, text: "Form Elements", to: "statistics" },
     {
       icon: UserCircle,
       text: "Table",
       children: [
-        { text: "Normal Table", to: "tables/normal" },
-        { text: "DataTable", to: "tables/datatable" },
-        { text: "DataTable with Filters", to: "tables/filters" },
+        { text: "Simple Table", to: "dashboard/simple-table" },
+        {
+          text: "Dynamic Table with No filters",
+          to: "dashboard/dynamic-table",
+        },
+        {
+          text: "Dynamic Table with filters",
+          to: "dashboard/dynamic-table-with-filters",
+        },
       ],
     },
     { icon: Boxes, text: "Buttons", to: "tasks" },
@@ -39,15 +55,32 @@ const Dashboard = () => {
     <div className="flex">
       <SidebarProvider>
         <Sidebar>
-          {menus.map((item, index) => (
-            <SidebarItem
-              key={index}
-              icon={item.icon}
-              text={item.text}
-              to={item.to}
-              alert={item.alert}
-            />
-          ))}
+          {menus.map((item, index) => {
+            const Icon = item.icon;
+
+            return item.children ? (
+              <SidebarItem key={index} icon={Icon} text={item.text}>
+                {item.children.map((child, idx) => (
+                  <SidebarItem
+                    key={idx}
+                    icon={() => (
+                      <span className="w-2 h-2 rounded-full bg-gray-400" />
+                    )}
+                    text={child.text}
+                    to={child.to}
+                  />
+                ))}
+              </SidebarItem>
+            ) : (
+              <SidebarItem
+                key={index}
+                icon={Icon}
+                text={item.text}
+                to={item.to}
+                alert={item.alert}
+              />
+            );
+          })}
         </Sidebar>
       </SidebarProvider>
 
