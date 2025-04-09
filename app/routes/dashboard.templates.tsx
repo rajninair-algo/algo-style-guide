@@ -11,13 +11,17 @@ import CustomCheckbox from "~/components/CustomCheckbox";
 import CustomRadioButton from "~/components/CustomRadioButton";
 import { useState } from "react";
 import FileUpload from "~/components/FileUpload";
-import { ExampleBlock } from "~/components/ExampleBlock";
+import { TemplateBlock } from "~/components/TemplateBlock";
 import Accordion from "~/components/Accordion";
+import { PrimaryButton } from "~/components/buttons/PrimaryButton";
+import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 
 // app/routes/dashboard.tasks.tsx
 export default function Templates() {
   const [selectedValue, setSelectedValue] = useState("");
-
+  const handleClick = () => {
+    alert("I'm clicked");
+  };
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
     console.log("Selected:", value);
@@ -44,7 +48,7 @@ export default function Templates() {
   ]}
 />`;
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto p-6 bg-slate-50">
       {/* Usage */}
       <h4 className="text-5xl mb-4 underline pb-4">Form Fields</h4>
 
@@ -54,7 +58,7 @@ export default function Templates() {
         <SectionTitle>Personal Info</SectionTitle>
 
         <form>
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="Full Name">
   <Input name="fullname" placeholder="John Doe" />
 </FormFieldWrapper>`}
@@ -62,14 +66,14 @@ export default function Templates() {
             <FormFieldWrapper label="Full Name">
               <Input name="fullname" placeholder="John Doe" />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="Email">
   <Input
     name="email"
     type="email"
-    placeholder="rajni.nair@algorisys.com"
+    placeholder="johndoe@gmail.com"
 />
 </FormFieldWrapper>`}
           >
@@ -77,12 +81,12 @@ export default function Templates() {
               <Input
                 name="email"
                 type="email"
-                placeholder="rajni.nair@algorisys.com"
+                placeholder="johndoe@gmail.com"
               />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="Upload Profile Picture">
   <FileUpload name="profilePic" accept="image/*" showPreview />
 </FormFieldWrapper>`}
@@ -90,9 +94,9 @@ export default function Templates() {
             <FormFieldWrapper label="Upload Profile Picture">
               <FileUpload name="profilePic" accept="image/*" showPreview />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="Choose an option:">
   <div className="flex gap-5">
     <CustomRadioButton
@@ -150,9 +154,9 @@ export default function Templates() {
                 Selected: {selectedValue}
               </p>
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="Country">
   <Select name="country">
     <option value="">Select</option>
@@ -168,9 +172,9 @@ export default function Templates() {
                 <option value="us">USA</option>
               </Select>
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="About You">
   <Textarea
     name="about"
@@ -186,9 +190,9 @@ export default function Templates() {
                 placeholder="Tell us about yourself..."
               />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="">
   <Checkbox name="terms" label="I agree to the terms and conditions" />
 </FormFieldWrapper>`}
@@ -199,9 +203,9 @@ export default function Templates() {
                 label="I agree to the terms and conditions"
               />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<FormFieldWrapper label="">
   <CustomCheckbox label="I agree to the terms" />
 </FormFieldWrapper>`}
@@ -212,9 +216,9 @@ export default function Templates() {
                 onChange={handleChange}
               />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
-          <ExampleBlock
+          <TemplateBlock
             code={`<button type="submit" className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
   Submit
 </button>`}
@@ -225,12 +229,12 @@ export default function Templates() {
             >
               Submit
             </button>
-          </ExampleBlock>
+          </TemplateBlock>
 
           <br />
           <br />
 
-          <ExampleBlock code={accordionCode}>
+          <TemplateBlock code={accordionCode}>
             <FormFieldWrapper label="Accordion Title">
               <Accordion
                 items={[
@@ -250,10 +254,18 @@ export default function Templates() {
                 ]}
               />
             </FormFieldWrapper>
-          </ExampleBlock>
+          </TemplateBlock>
 
           <br />
           <br />
+          <PrimaryButton onClick={handleClick} variant="primary" size="md">
+            primary md
+          </PrimaryButton>
+
+          {/* tes */}
+          <PrimaryButton onClick={handleClick} variant="outline" size="xl">
+            outline xl
+          </PrimaryButton>
         </form>
       </div>
     </div>

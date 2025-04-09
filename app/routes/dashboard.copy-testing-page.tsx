@@ -11,7 +11,7 @@ import CustomCheckbox from "~/components/CustomCheckbox";
 import CustomRadioButton from "~/components/CustomRadioButton";
 import { useState } from "react";
 import FileUpload from "~/components/FileUpload";
-import { ExampleBlock } from "~/components/ExampleBlock";
+import { TemplateBlock } from "~/components/TemplateBlock";
 import Accordion from "~/components/Accordion";
 
 // app/routes/dashboard.tasks.tsx

@@ -1,10 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
+import { useState } from "react";
 import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import SimpleTable from "~/components/Table/SimpleTable"; // use your actual path
+import DynamicTable from "~/components/Table/DynamicTable";
 import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 import PaginationStyle_2 from "~/components/Table/PaginationStyle_2";
-import { useState } from "react";
 
 export const loader: LoaderFunction = async () => {
   const data = [
@@ -118,7 +117,13 @@ export const loader: LoaderFunction = async () => {
   return json(data);
 };
 
-export default function TablePage() {
+const columns = [
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "doj", label: "Date of Joining" },
+];
+
+export default function ParentComponent() {
   const data = useLoaderData<typeof loader>();
   const rowsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -129,17 +134,22 @@ export default function TablePage() {
   );
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
+
   return (
     <div className="p-8 max-w-5xl mx-auto">
       <h1 className="text-2xl font-semibold mb-6">User Table</h1>
-
-      <SimpleTable
+      <DynamicTable
         data={paginatedData}
-        rowsPerPage={5}
-        onView={(row) => console.log("View", row)}
-        onEdit={(row) => console.log("Edit", row)}
-        onDelete={(row) => console.log("Delete", row)}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        onEdit={(row) => console.log("edit", row)}
+        onView={(row) => console.log("view", row)}
+        onDelete={(row) => console.log("delete", row)}
       />
+      {/* Pagination Component */}
       {/* Pagination style 1 */}
       <PaginationStyle_1
         currentPage={currentPage}

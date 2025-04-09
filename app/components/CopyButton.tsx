@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ClipboardCopy } from "lucide-react";
+import { PrimaryButton } from "./buttons/PrimaryButton";
 
 interface CopyButtonProps {
   code: string;
@@ -16,17 +17,19 @@ export default function CopyButton({ code }: CopyButtonProps) {
 
   return (
     <div className="relative inline-block">
-      <button
+      <PrimaryButton
         type="button"
         onClick={copyToClipboard}
-        className="p-1 rounded hover:bg-indigo-100 text-indigo-700 transition-colors"
+        size="sm"
+        variant="outline"
+        icon={<ClipboardCopy className="w-4 h-4" />}
         title="Copy to clipboard"
       >
-        <ClipboardCopy className="w-5 h-5" />
-      </button>
+        {copied ? "Copied!" : "Copy"}
+      </PrimaryButton>
 
       {copied && (
-        <div className="absolute -top-8 right-0 bg-gray-800 text-white text-xs px-2 py-1 rounded shadow transition-opacity">
+        <div className="absolute -top-8 right-0 bg-gray-800 text-white text-xs font-bold px-2 py-1 rounded shadow transition-opacity whitespace-nowrap">
           Copied to clipboard
         </div>
       )}

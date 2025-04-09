@@ -36,19 +36,23 @@ const Dashboard = () => {
         { text: "Simple Table", to: "dashboard/simple-table" },
         {
           text: "Dynamic Table with No filters",
-          to: "dashboard/dynamic-table",
+          to: "dashboard/dynamic-table-without-filters",
         },
         {
           text: "Dynamic Table with filters",
           to: "dashboard/dynamic-table-with-filters",
         },
+        {
+          text: "Pagination Styles",
+          to: "dashboard/pagination-styles",
+        },
       ],
     },
-    { icon: Boxes, text: "Buttons", to: "tasks" },
-    { icon: Settings, text: "Dropdown", to: "settings" },
-    { icon: LifeBuoy, text: "Checkbox", to: "help" },
-    { icon: LifeBuoy, text: "RadioButtons", to: "help" },
-    { icon: LayoutTemplateIcon, text: "Templates", to: "templates" },
+    { icon: Boxes, text: "Buttons", to: "dashboard/buttons" },
+    { icon: Settings, text: "Dropdown", to: "dashboard/settings" },
+    { icon: LifeBuoy, text: "Checkbox", to: "dashboard/dynamic-checkboxes" },
+    { icon: LifeBuoy, text: "RadioButtons", to: "dashboard/help" },
+    { icon: LayoutTemplateIcon, text: "Templates", to: "dashboard/templates" },
   ];
 
   return (

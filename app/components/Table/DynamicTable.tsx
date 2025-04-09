@@ -1,5 +1,8 @@
-import { useState, useMemo } from "react";
+// DynamicTable.tsx
+import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
+import PaginationStyle_2 from "./PaginationStyle_2";
+import PaginationStyle_1 from "./PaginationStyle_1";
 
 type Column<T> = {
   key: keyof T;
@@ -12,82 +15,51 @@ type Props<T> = {
   data: T[];
   columns: Column<T>[];
   rowsPerPage?: number;
+  onEdit?: (row: T) => void;
+  onView?: (row: T) => void;
+  onDelete?: (row: T) => void;
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onSort?: (key: keyof T) => void;
+  sortConfig?: {
+    key: keyof T;
+    direction: "asc" | "desc";
+  } | null;
+  searchTerms?: Record<string, string>;
+  onSearchChange?: (key: string, value: string) => void;
 };
 
 export default function DynamicTable<T extends Record<string, any>>({
   data,
   columns,
   rowsPerPage = 5,
+  onEdit,
+  onView,
+  onDelete,
+  currentPage,
+  totalPages,
+  onPageChange,
+  onSort,
+  sortConfig,
+  searchTerms = {},
+  onSearchChange,
+  setCurrentPage,
 }: Props<T>) {
-  const [searchTerms, setSearchTerms] = useState<Record<string, string>>({});
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof T;
-    direction: "asc" | "desc";
-  } | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handleSearchChange = (key: string, value: string) => {
-    setSearchTerms({ ...searchTerms, [key]: value });
-    setCurrentPage(1);
-  };
-
-  const sortedData = useMemo(() => {
-    let filtered = data.filter((row) =>
-      columns.every((col) => {
-        if (!col.searchable) return true;
-        const val = row[col.key]?.toString().toLowerCase();
-        const term = searchTerms[col.key as string]?.toLowerCase() || "";
-        return val?.includes(term);
-      })
-    );
-
-    if (sortConfig) {
-      filtered = [...filtered].sort((a, b) => {
-        const aVal = a[sortConfig.key];
-        const bVal = b[sortConfig.key];
-        if (aVal < bVal) return sortConfig.direction === "asc" ? -1 : 1;
-        if (aVal > bVal) return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-
-    return filtered;
-  }, [data, searchTerms, sortConfig]);
-
-  const paginatedData = sortedData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
-  const totalPages = Math.ceil(sortedData.length / rowsPerPage);
-
-  const toggleSort = (key: keyof T) => {
-    setSortConfig((prev) => {
-      if (prev?.key === key) {
-        return {
-          key,
-          direction: prev.direction === "asc" ? "desc" : "asc",
-        };
-      }
-      return { key, direction: "asc" };
-    });
-  };
-
   return (
-    <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+      <table className="min-w-full bg-white">
+        <thead className="bg-white text-[#7c4dff] text-left text-sm font-semibold border-b border-gray-200">
           <tr>
+            <th className="px-4 py-3">Sr. No.</th>
             {columns.map((col) => (
-              <th
-                key={col.key as string}
-                className="px-4 py-3 text-left text-sm font-medium text-gray-700"
-              >
+              <th key={col.key as string} className="px-4 py-3">
                 <div className="flex items-center gap-2">
                   {col.label}
-                  {col.sortable && (
+                  {col.sortable && onSort && (
                     <button
-                      onClick={() => toggleSort(col.key)}
-                      className="text-gray-500 hover:text-black"
+                      onClick={() => onSort(col.key)}
+                      className="text-[#7c4dff] hover:text-[#5e32ff] transition"
                     >
                       {sortConfig?.key === col.key ? (
                         sortConfig.direction === "asc" ? (
@@ -101,59 +73,69 @@ export default function DynamicTable<T extends Record<string, any>>({
                     </button>
                   )}
                 </div>
-                {col.searchable && (
+                {col.searchable && onSearchChange && (
                   <input
                     type="text"
                     placeholder={`Search ${col.label}`}
-                    className="mt-2 block w-full px-2 py-1 border rounded-md text-sm"
+                    className="mt-2 w-full rounded border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c4dff]"
                     value={searchTerms[col.key as string] || ""}
                     onChange={(e) =>
-                      handleSearchChange(col.key as string, e.target.value)
+                      onSearchChange(col.key as string, e.target.value)
                     }
                   />
                 )}
               </th>
             ))}
+            {(onEdit || onView || onDelete) && (
+              <th className="px-4 py-3">Actions</th>
+            )}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100 bg-white">
-          {paginatedData.map((row, idx) => (
-            <tr key={idx} className="hover:bg-gray-50">
+        <tbody className="text-sm text-gray-700">
+          {data.map((row, idx) => (
+            <tr key={idx} className="border-t hover:bg-gray-50">
+              <td className="px-4 py-2">
+                {(currentPage - 1) * rowsPerPage + idx + 1}
+              </td>
               {columns.map((col) => (
-                <td
-                  key={col.key as string}
-                  className="px-4 py-2 text-sm text-gray-800"
-                >
+                <td key={col.key as string} className="px-4 py-2">
                   {row[col.key]}
                 </td>
               ))}
+              {(onEdit || onView || onDelete) && (
+                <td className="px-4 py-2 space-x-2">
+                  {onView && (
+                    <button
+                      onClick={() => onView(row)}
+                      className="text-[#7c4dff] hover:underline"
+                    >
+                      View
+                    </button>
+                  )}
+                  {onEdit && (
+                    <button
+                      onClick={() => onEdit(row)}
+                      className="text-[#7c4dff] hover:underline"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  {onDelete && (
+                    <button
+                      onClick={() => onDelete(row)}
+                      className="text-red-500 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  )}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t">
-        <span className="text-sm text-gray-600">
-          Page {currentPage} of {totalPages}
-        </span>
-        <div className="space-x-2">
-          <button
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <button
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
-      </div>
+      <hr />
     </div>
   );
 }

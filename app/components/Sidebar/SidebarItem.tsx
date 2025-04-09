@@ -25,7 +25,6 @@ const SidebarItem = ({
   const hasChildren = React.Children.count(children) > 0;
   const active = to ? location.pathname.endsWith(to) : false;
 
-  // Expand if any child is active
   useEffect(() => {
     if (hasChildren) {
       const anyChildActive = React.Children.toArray(children).some(
@@ -38,13 +37,13 @@ const SidebarItem = ({
 
   const baseClasses = `relative flex items-center py-3 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
     active
-      ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-      : "bg-indigo-50 text-gray-600 hover:bg-indigo-100"
+      ? "bg-accent text-white"
+      : "bg-secondary text-muted hover:bg-primary-light hover:text-primary-dark"
   }`;
 
   const content = (
     <>
-      <Icon />
+      <Icon className={active ? "text-white" : "text-muted"} />
       <span
         className={`overflow-hidden transition-all ${
           expanded ? "w-52 ml-2" : "w-0"
@@ -54,13 +53,13 @@ const SidebarItem = ({
       </span>
       {alert && (
         <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
+          className={`absolute right-2 w-2 h-2 rounded-full bg-accent ${
             expanded ? "" : "top-2"
           }`}
         />
       )}
       {hasChildren && expanded && (
-        <span className="ml-auto">
+        <span className={`ml-auto ${active ? "text-white" : "text-muted"}`}>
           {open ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
         </span>
       )}
@@ -81,7 +80,7 @@ const SidebarItem = ({
 
       {hasChildren && (
         <ul
-          className={`transition-all duration-300 pl-10 text-sm text-gray-600 space-y-1 ${
+          className={`transition-all duration-300 pl-10 text-sm text-muted space-y-1 ${
             open && expanded
               ? "max-h-96 opacity-100"
               : "max-h-0 opacity-0 overflow-hidden"
