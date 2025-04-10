@@ -5,6 +5,7 @@ import SimpleTable from "~/components/Table/SimpleTable"; // use your actual pat
 import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 import PaginationStyle_2 from "~/components/Table/PaginationStyle_2";
 import { useState } from "react";
+import { TemplateBlock } from "~/components/TemplateBlock";
 
 export const loader: LoaderFunction = async () => {
   const data = [
@@ -131,20 +132,88 @@ export default function TablePage() {
   const totalPages = Math.ceil(data.length / rowsPerPage);
   return (
     <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">User Table</h1>
+      <h1 className="text-2xl font-semibold mb-6">Tables</h1>
 
-      <SimpleTable
+      <h3 className="mb-2 text-lg font-bold ">Small Table - sm</h3>
+      <TemplateBlock
+        code={` <SimpleTable
+          data={paginatedData}
+          size="sm"
+          onView={(row) => console.log("View", row)}
+          onEdit={(row) => console.log("Edit", row)}
+          onDelete={(row) => console.log("Delete", row)}
+        />`}
+      >
+        <SimpleTable
+          data={paginatedData}
+          size="sm"
+          onView={(row) => console.log("View", row)}
+          onEdit={(row) => console.log("Edit", row)}
+          onDelete={(row) => console.log("Delete", row)}
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Medium Table - md</h3>
+
+      <TemplateBlock
+        code={`<SimpleTable
+          data={paginatedData}
+          size="md"
+          onView={(row) => console.log("View", row)}
+          onEdit={(row) => console.log("Edit", row)}
+          onDelete={(row) => console.log("Delete", row)}
+        />`}
+      >
+        <SimpleTable
+          data={paginatedData}
+          size="md"
+          onView={(row) => console.log("View", row)}
+          onEdit={(row) => console.log("Edit", row)}
+          onDelete={(row) => console.log("Delete", row)}
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Large Table - lg</h3>
+      <TemplateBlock
+        code={`  <SimpleTable
         data={paginatedData}
-        rowsPerPage={5}
+        size="lg"
         onView={(row) => console.log("View", row)}
         onEdit={(row) => console.log("Edit", row)}
         onDelete={(row) => console.log("Delete", row)}
       />
+`}
+      >
+        <SimpleTable
+          data={paginatedData}
+          size="lg"
+          onView={(row) => console.log("View", row)}
+          onEdit={(row) => console.log("Edit", row)}
+          onDelete={(row) => console.log("Delete", row)}
+        />
+      </TemplateBlock>
+
+      <br />
+
       {/* Pagination style 1 */}
       <PaginationStyle_1
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+      />
+      <br />
+      <h5 className="text-4xl mb-4">Testing - copy and paste</h5>
+
+      <SimpleTable
+        data={paginatedData}
+        size="lg"
+        onView={(row) => console.log("View", row)}
+        onEdit={(row) => console.log("Edit", row)}
+        onDelete={(row) => console.log("Delete", row)}
       />
     </div>
   );

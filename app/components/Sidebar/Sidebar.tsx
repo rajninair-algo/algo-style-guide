@@ -51,10 +51,13 @@ const Sidebar = ({ children }: SidebarProps) => {
           </Link>
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className={`p-1.5 rounded-lg bg-white border  text-primary hover:bg-accent hover:text-white relative ${
-              !expanded &&
-              "rounded-l-0 rounded-r-lg -right-[3.5rem] -top-[.5rem] z-30"
-            } `}
+            className={`p-1.5 bg-white border text-primary hover:bg-accent hover:text-white relative
+    ${
+      expanded
+        ? "rounded-lg"
+        : "rounded-l-none rounded-r-lg -right-[3.5rem] -top-[.5rem] z-30"
+    }
+  `}
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>

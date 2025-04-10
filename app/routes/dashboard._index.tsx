@@ -1,5 +1,7 @@
 export default function DashboardHome() {
   return (
-    <div className="text-xl font-semibold">👋 Welcome to your Dashboard!</div>
+    <div className="">
+      <h3 className="text-xl font-semibold">Algorisys Theme - Style Guide</h3>
+    </div>
   );
 }

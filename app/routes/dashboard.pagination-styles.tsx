@@ -129,35 +129,119 @@ const PaginationStyles = () => {
 
   return (
     <div>
-      <h3 className="font-bold mb-4">Pagination Style 1</h3>
-
+      <h3 className="font-bold mb-4 text-2xl text-primary ">
+        Pagination Style 1
+      </h3>
+      <hr />
+      <br />
+      <h4 className="font-bold">Left aligned</h4>
       <TemplateBlock
         code={`<PaginationStyle_1
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        alignSide="left"
       />`}
       >
         <PaginationStyle_1
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
+          alignSide="left"
         />
       </TemplateBlock>
 
-      <h3 className="font-bold mb-4">Pagination Style 2</h3>
+      <h4 className="font-bold">Center aligned</h4>
+      <TemplateBlock
+        code={`<PaginationStyle_1
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="center"
+      />`}
+      >
+        <PaginationStyle_1
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          alignSide="center"
+        />
+      </TemplateBlock>
 
+      <h4 className="font-bold">Right aligned</h4>
+      <TemplateBlock
+        code={`<PaginationStyle_1
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="right"
+      />`}
+      >
+        <PaginationStyle_1
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          alignSide="right"
+        />
+      </TemplateBlock>
+
+      <br />
+      <br />
+      <hr />
+      <br />
+
+      <h3 className="font-bold mb-4 text-2xl text-primary ">
+        Pagination Style 2
+      </h3>
+
+      <h4 className="font-bold">Left aligned</h4>
       <TemplateBlock
         code={`<PaginationStyle_2
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        alignSide="left"
       />`}
       >
         <PaginationStyle_2
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
+          alignSide="left"
+        />
+      </TemplateBlock>
+
+      <h4 className="font-bold">Center aligned</h4>
+      <TemplateBlock
+        code={`<PaginationStyle_2
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="center"
+      />`}
+      >
+        <PaginationStyle_2
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          alignSide="center"
+        />
+      </TemplateBlock>
+
+      <h4 className="font-bold">Right aligned</h4>
+      <TemplateBlock
+        code={`<PaginationStyle_2
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="right"
+      />`}
+      >
+        <PaginationStyle_2
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          alignSide="right"
         />
       </TemplateBlock>
 

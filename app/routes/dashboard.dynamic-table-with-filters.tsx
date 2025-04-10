@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import DynamicTable from "~/components/Table/DynamicTable";
 import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 import PaginationStyle_2 from "~/components/Table/PaginationStyle_2";
+import { TemplateBlock } from "~/components/TemplateBlock";
 
 export const loader: LoaderFunction = async () => {
   const data = [
@@ -183,11 +184,14 @@ export default function ParentComponent() {
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">User Table</h1>
-      <DynamicTable
+      <h1 className="text-2xl font-semibold mb-6">Data Table - With filters</h1>
+
+      <h3 className="mb-2 text-lg font-bold ">Small Table - sm</h3>
+      <TemplateBlock
+        code={` <DynamicTable
         data={paginatedData}
         columns={columns}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={5}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
@@ -198,8 +202,106 @@ export default function ParentComponent() {
         onEdit={(row) => console.log("edit", row)}
         onView={(row) => console.log("view", row)}
         onDelete={(row) => console.log("delete", row)}
-        setCurrentPage={setCurrentPage}
-      />
+        size="sm" // or "sm" or "md"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={5}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          searchTerms={searchTerms}
+          onSearchChange={handleSearchChange}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="sm" // or "sm" or "md"
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Medium Table - md</h3>
+      <TemplateBlock
+        code={`<DynamicTable
+        data={paginatedData}
+        columns={columns}
+        rowsPerPage={5}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        sortConfig={sortConfig}
+        onSort={handleSort}
+        searchTerms={searchTerms}
+        onSearchChange={handleSearchChange}
+        onEdit={(row) => console.log("edit", row)}
+        onView={(row) => console.log("view", row)}
+        onDelete={(row) => console.log("delete", row)}
+        size="md" // or "sm" or "md"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={5}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          searchTerms={searchTerms}
+          onSearchChange={handleSearchChange}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="md" // or "sm" or "md"
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Large Table - lg</h3>
+
+      <TemplateBlock
+        code={` <DynamicTable
+        data={paginatedData}
+        columns={columns}
+        rowsPerPage={5}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        sortConfig={sortConfig}
+        onSort={handleSort}
+        searchTerms={searchTerms}
+        onSearchChange={handleSearchChange}
+        onEdit={(row) => console.log("edit", row)}
+        onView={(row) => console.log("view", row)}
+        onDelete={(row) => console.log("delete", row)}
+        size="lg" // or "sm" or "md"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={5}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          searchTerms={searchTerms}
+          onSearchChange={handleSearchChange}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="lg" // or "sm" or "md"
+        />
+      </TemplateBlock>
+
       {/* Pagination Component */}
       {/* Pagination style 1 */}
       <PaginationStyle_1

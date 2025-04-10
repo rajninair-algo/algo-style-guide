@@ -43,13 +43,13 @@ export default function ButtonOptionsPage() {
       <h1 className="text-4xl font-bold mb-4">Button Template</h1>
       <hr />
       <div className="">
-        <div className="space-y-6">
+        <div className="space-y-2">
           <h2 className="text-xl font-semibold">Button Sizes by Variant</h2>
           <div className="space-y-6">
             {variants.map((variant) => (
               <div key={variant}>
                 {renderVariantTitle(variant)}
-                <div className="bg-slate-100 flex gap-4 flex-wrap">
+                <div className="bg-slate-100 grid gap-4 md:grid-cols-3 lg:grid-cols-4">
                   {sizes.map((size) => (
                     <TemplateBlock
                       key={`${variant}-${size}`}
@@ -72,7 +72,7 @@ export default function ButtonOptionsPage() {
             {variants.map((variant) => (
               <div key={`rounded-${variant}`}>
                 {renderVariantTitle(variant)}
-                <div className="bg-slate-100 flex gap-4 flex-wrap">
+                <div className="bg-slate-100 grid gap-4 md:grid-cols-3 lg:grid-cols-4">
                   {sizes.map((size) => (
                     <TemplateBlock
                       key={`rounded-${variant}-${size}`}
@@ -95,7 +95,7 @@ export default function ButtonOptionsPage() {
             {variants.map((variant) => (
               <div key={`outline-${variant}`}>
                 {renderVariantTitle(variant)}
-                <div className="bg-slate-100 flex gap-4 flex-wrap">
+                <div className="bg-slate-100 grid gap-4 md:grid-cols-3 lg:grid-cols-4">
                   {sizes.map((size) => (
                     <TemplateBlock
                       key={`outline-${variant}-${size}`}
@@ -114,7 +114,7 @@ export default function ButtonOptionsPage() {
           <h2 className="text-2xl font-bold text-primary py-1 mb-4">
             Upload Button
           </h2>
-          <div className="flex flex-wrap gap-4">
+          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
             <TemplateBlock
               code={`<Button icon={<Upload size={16} />} variant="primary">Upload</Button>`}
             >

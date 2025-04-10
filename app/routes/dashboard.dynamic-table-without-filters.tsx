@@ -4,6 +4,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import DynamicTable from "~/components/Table/DynamicTable";
 import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 import PaginationStyle_2 from "~/components/Table/PaginationStyle_2";
+import { TemplateBlock } from "~/components/TemplateBlock";
 
 export const loader: LoaderFunction = async () => {
   const data = [
@@ -137,8 +138,13 @@ export default function ParentComponent() {
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">User Table</h1>
-      <DynamicTable
+      <h1 className="text-2xl font-semibold mb-6">
+        Data Table - Without filters
+      </h1>
+
+      <h3 className="mb-2 text-lg font-bold ">Small Table - sm</h3>
+      <TemplateBlock
+        code={` <DynamicTable
         data={paginatedData}
         columns={columns}
         rowsPerPage={rowsPerPage}
@@ -148,13 +154,114 @@ export default function ParentComponent() {
         onEdit={(row) => console.log("edit", row)}
         onView={(row) => console.log("view", row)}
         onDelete={(row) => console.log("delete", row)}
-      />
+        size="sm"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="sm"
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Medium Table - md</h3>
+      <TemplateBlock
+        code={`<DynamicTable
+        data={paginatedData}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        onEdit={(row) => console.log("edit", row)}
+        onView={(row) => console.log("view", row)}
+        onDelete={(row) => console.log("delete", row)}
+        size="md"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="md"
+        />
+      </TemplateBlock>
+
+      <br />
+
+      <h3 className="mb-2 text-lg font-bold ">Large Table - lg</h3>
+      <TemplateBlock
+        code={`
+         <DynamicTable
+        data={paginatedData}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        onEdit={(row) => console.log("edit", row)}
+        onView={(row) => console.log("view", row)}
+        onDelete={(row) => console.log("delete", row)}
+        size="lg"
+      />`}
+      >
+        <DynamicTable
+          data={paginatedData}
+          columns={columns}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onEdit={(row) => console.log("edit", row)}
+          onView={(row) => console.log("view", row)}
+          onDelete={(row) => console.log("delete", row)}
+          size="lg"
+        />
+      </TemplateBlock>
+
+      <br />
       {/* Pagination Component */}
       {/* Pagination style 1 */}
+      {/* Left */}
+      <h3>Left aligned</h3>
       <PaginationStyle_1
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        alignSide="left"
+      />
+      {/* Center */}
+      <h3>Center aligned</h3>
+
+      <PaginationStyle_1
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="center"
+      />
+      {/* Right */}
+      <h3>Right aligned</h3>
+
+      <PaginationStyle_1
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        alignSide="right"
       />
     </div>
   );

@@ -1,41 +1,22 @@
 import React, { useState } from "react";
-import { Button } from "~/components/buttons/Buttons";
-import Form from "~/components/Form";
+import { CustomCheckbox } from "~/components/CustomCheckbox";
+import FileUpload from "~/components/FileUpload";
+import FormFieldWrapper from "~/components/FormFieldWrapper";
 import Input from "~/components/Input";
 import { TemplateBlock } from "~/components/TemplateBlock";
 
-const fields = [
-  { label: "First Name", name: "firstName", type: "text", placeholder: "Jane" },
-  { label: "Last Name", name: "lastName", type: "text", placeholder: "Doe" },
-  {
-    label: "Email",
-    name: "email",
-    type: "email",
-    placeholder: "jane@example.com",
-  },
-  {
-    label: "City",
-    name: "city",
-    type: "city",
-    placeholder: "City",
-  },
-  {
-    label: "Address 1",
-    name: "address 1",
-    type: "address 1",
-    placeholder: "address 1",
-  },
-  {
-    label: "Address 2",
-    name: "address 2",
-    type: "address 2",
-    placeholder: "address 2",
-  },
-];
+export default function FormElementsPage() {
+  const [formData, setFormData] = useState({
+    file: null as File | null,
+    textFieldName: "",
+    numberField: "",
+    dateField: "",
+    message: "",
+    password: "",
+  });
 
-export default function Page() {
-  const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -44,7 +25,9 @@ export default function Page() {
     alert("handleSubmit");
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
@@ -60,147 +43,131 @@ export default function Page() {
   };
 
   return (
-    <div className="space-y-4 mx-auto flex flex-col">
-      <h2 className="text-xl font-bold">3 ColumnLayout</h2>
-      <TemplateBlock
-        code={`<h4 className="text-lg font-bold mb-4">Form Title</h4>`}
-      >
-        <h4 className="text-lg font-bold mb-4">Form Title</h4>
-      </TemplateBlock>
-      <TemplateBlock
-        code={` <Form noOfColumns={3} onSubmit={handleSubmit} buttonEnd={true}>
-        {fields.map((field) => (
-          <Input
-            key={field.name}
-            type={field.type}
-            name={field.name}
-            label={field.label}
-            placeholder={field.placeholder}
-            value={formData[field.name] || ""}
+    <div className="space-y-4 mx-auto flex flex-col max-w-2xl">
+      <h2 className="text-3xl font-bold mb-4">Form Templates</h2>
+
+      <form onSubmit={handleSubmit}>
+        <TemplateBlock
+          code={`<Input
+            type="text"
+            name="textFieldName"
+            label="Text Field Label"
+            placeholder="Enter your fieldname"
+            required
+            value={formData.textFieldName}
             onChange={handleChange}
-            error={errors[field.name]}
-          />
-        ))}
-
-        <Button type="submit" variant="primary" size="md">
-          Submit
-        </Button>
-      </Form>`}
-      >
-        <Form noOfColumns={3} onSubmit={handleSubmit} buttonEnd={true}>
-          {fields.map((field) => (
-            <Input
-              key={field.name}
-              type={field.type}
-              name={field.name}
-              label={field.label}
-              placeholder={field.placeholder}
-              value={formData[field.name] || ""}
-              onChange={handleChange}
-              error={errors[field.name]}
-            />
-          ))}
-
-          <Button type="submit" variant="primary" size="md">
-            Submit
-          </Button>
-        </Form>
-      </TemplateBlock>
-
-      <br />
-      <hr />
-      <br />
-
-      <h2 className="text-2xl font-bold">2 Column Layout</h2>
-      <TemplateBlock
-        code={` <Form noOfColumns={2} onSubmit={handleSubmit}>
-        {fields.map((field) => (
+            error={errors.textFieldName}
+          />`}
+        >
           <Input
-            key={field.name}
-            type={field.type}
-            name={field.name}
-            label={field.label}
-            placeholder={field.placeholder}
-            value={formData[field.name] || ""}
+            type="text"
+            name="textFieldName"
+            label="Text Field Label"
+            placeholder="Enter your fieldname"
+            required
+            value={formData.textFieldName}
             onChange={handleChange}
-            error={errors[field.name]}
+            error={errors.textFieldName}
           />
-        ))}
+        </TemplateBlock>
 
-        <Button type="submit" variant="primary" size="md">
-          Submit
-        </Button>
-      </Form>`}
-      >
-        <Form noOfColumns={2} onSubmit={handleSubmit}>
-          {fields.map((field) => (
-            <Input
-              key={field.name}
-              type={field.type}
-              name={field.name}
-              label={field.label}
-              placeholder={field.placeholder}
-              value={formData[field.name] || ""}
-              onChange={handleChange}
-              error={errors[field.name]}
-            />
-          ))}
-
-          <Button type="submit" variant="primary" size="md">
-            Submit
-          </Button>
-        </Form>
-      </TemplateBlock>
-
-      <br />
-      <hr />
-      <hr />
-      <br />
-
-      <h4 className="font-bold text-4xl">Testing copy and paste</h4>
-      <br />
-      <hr />
-      <br />
-      <h4 className="text-lg font-bold mb-4">Form Title</h4>
-      <Form noOfColumns={4} onSubmit={handleSubmit} buttonEnd={true}>
-        {fields.map((field) => (
+        <TemplateBlock
+          code={`<Input
+            type="number"
+            name="numberField"
+            label="Number Field"
+            placeholder="Enter your numberField"
+            min={1}
+            max={120}
+            required
+            value={formData.numberField}
+            onChange={handleChange}
+            error={errors.numberField}
+          />`}
+        >
           <Input
-            key={field.name}
-            type={field.type}
-            name={field.name}
-            label={field.label}
-            placeholder={field.placeholder}
-            value={formData[field.name] || ""}
+            type="number"
+            name="numberField"
+            label="Number Field"
+            placeholder="Enter your numberField"
+            min={1}
+            max={120}
+            required
+            value={formData.numberField}
             onChange={handleChange}
-            error={errors[field.name]}
+            error={errors.numberField}
           />
-        ))}
+        </TemplateBlock>
 
-        <Button type="submit" variant="primary" size="md">
-          Submit
-        </Button>
-      </Form>
-
-      <h4 className="text-lg font-bold mb-4">Form Title</h4>
-
-      <Form noOfColumns={3} onSubmit={handleSubmit} buttonEnd={true}>
-        {fields.map((field) => (
+        <TemplateBlock
+          code={` <Input
+            type="date"
+            name="dateField"
+            label="Date Label"
+            required
+            value={formData.dateField}
+            onChange={handleChange}
+            error={errors.dateField}
+          />`}
+        >
           <Input
-            key={field.name}
-            type={field.type}
-            name={field.name}
-            label={field.label}
-            placeholder={field.placeholder}
-            value={formData[field.name] || ""}
+            type="date"
+            name="dateField"
+            label="Date Label"
+            required
+            value={formData.dateField}
             onChange={handleChange}
-            error={errors[field.name]}
+            error={errors.dateField}
           />
-        ))}
+        </TemplateBlock>
 
-        <Button type="submit" variant="primary" size="md">
-          Submit
-        </Button>
-      </Form>
+        <TemplateBlock
+          code={`<Input
+            as="textarea"
+            name="message"
+            label="Message"
+            placeholder="Tell us about yourself"
+            rows={4}
+            value={formData.message}
+            onChange={handleChange}
+            error={errors.message}
+          />`}
+        >
+          <Input
+            as="textarea"
+            name="message"
+            label="Message"
+            placeholder="Tell us about yourself"
+            rows={4}
+            value={formData.message}
+            onChange={handleChange}
+            error={errors.message}
+          />
+        </TemplateBlock>
+        <TemplateBlock
+          code={`<Input
+            type="password"
+            name="password"
+            label="Password Field Label"
+            placeholder="Enter your password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+            error={errors.password}
+          />`}
+        >
+          <Input
+            type="password"
+            name="password"
+            label="Password Field Label"
+            placeholder="Enter your password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+            error={errors.password}
+          />
+        </TemplateBlock>
+      </form>
     </div>
   );
 }

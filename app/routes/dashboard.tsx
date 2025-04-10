@@ -23,9 +23,9 @@ const Dashboard = () => {
       icon: BarChart3,
       text: "Layouts",
       children: [
+        { text: "Font & Theme Colors", to: "dashboard/theme-colors" },
         { text: "Layout One", to: "dashboard/layout1" },
         { text: "Layout Two", to: "dashboard/layout2" },
-        { text: "Layout Three", to: "dashboard/layout3" },
       ],
     },
     // { icon: BarChart3, text: "Form Elements", to: "dashboard/form-elements" },
@@ -35,11 +35,11 @@ const Dashboard = () => {
       children: [
         { text: "Simple Table", to: "dashboard/simple-table" },
         {
-          text: "Dynamic Table with No filters",
+          text: "Table with No filters",
           to: "dashboard/dynamic-table-without-filters",
         },
         {
-          text: "Dynamic Table with filters",
+          text: "Table with filters",
           to: "dashboard/dynamic-table-with-filters",
         },
         {
@@ -57,14 +57,23 @@ const Dashboard = () => {
           text: "Buttons",
           to: "dashboard/button-options",
         },
+
+        {
+          text: "Checkboxes",
+          to: "dashboard/checkboxes",
+        },
+        {
+          text: "File Upload",
+          to: "dashboard/fileupload",
+        },
         { text: "Form Fields", to: "dashboard/form-elements" },
+        { text: "Form Templates", to: "dashboard/form-templates" },
       ],
     },
 
     { icon: Settings, text: "Dropdown", to: "dashboard/settings" },
     { icon: LifeBuoy, text: "Checkbox", to: "dashboard/dynamic-checkboxes" },
     { icon: LifeBuoy, text: "RadioButtons", to: "dashboard/help" },
-    { icon: LayoutTemplateIcon, text: "Templates", to: "dashboard/templates" },
   ];
 
   return (

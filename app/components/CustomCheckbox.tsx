@@ -1,35 +1,80 @@
-interface CustomCheckboxProps {
-  label: string;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-}
+import React, { useState, useEffect } from "react";
 
-export default function CustomCheckbox({
+type CustomCheckboxProps = {
+  label: string;
+  name: string;
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+};
+
+export function CustomCheckbox({
   label,
-  checked = false,
+  name,
+  checked,
   onChange,
+  error,
 }: CustomCheckboxProps) {
+  const [rippleActive, setRippleActive] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    setRippleActive(true);
+  };
+
+  useEffect(() => {
+    if (rippleActive) {
+      const timeout = setTimeout(() => {
+        setRippleActive(false);
+      }, 600);
+      return () => clearTimeout(timeout);
+    }
+  }, [rippleActive]);
+
   return (
-    <label className="flex items-center gap-3 cursor-pointer select-none">
-      <div className="relative">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange?.(e.target.checked)}
-          className="peer appearance-none w-5 h-5 border-2 border-indigo-500 rounded transition-all
-                       checked:bg-indigo-600 checked:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-        />
-        <svg
-          className="absolute left-0 top-0 w-5 h-5 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-          viewBox="0 0 24 24"
-        >
-          <path d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      <span className="text-indigo-800 font-medium">{label}</span>
-    </label>
+    <div className="mb-1">
+      <label className="flex items-center cursor-pointer select-none group">
+        <div className="relative">
+          <input
+            type="checkbox"
+            id={name}
+            name={name}
+            checked={checked}
+            onChange={handleChange}
+            className="sr-only"
+          />
+          <div
+            className={`w-5 h-5 rounded-md flex items-center justify-center overflow-hidden relative
+              bg-white transition-colors duration-200
+              ${
+                checked
+                  ? "border-primary"
+                  : "border-gray-400 group-hover:border-primary-light"
+              }
+              ${rippleActive ? "animate-border-pulse" : ""}
+              border-2
+            `}
+          >
+            {checked && (
+              <svg
+                className="w-4 h-4 text-primary z-10"
+                viewBox="0 0 22 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414L9 14.414 5.293 10.707a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </div>
+        </div>
+        <span className="ml-3 text-sm text-gray-700 group-hover:text-primary transition-all duration-150">
+          {label}
+        </span>
+      </label>
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
   );
 }

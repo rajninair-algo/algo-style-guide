@@ -151,7 +151,7 @@ export default function Templates() {
                   onChange={handleRadioChange}
                 />
               </div>
-              <p className="mt-4 text-indigo-700 font-medium">
+              <p className="mt-4 text-primary font-medium">
                 Selected: {selectedValue}
               </p>
             </FormFieldWrapper>

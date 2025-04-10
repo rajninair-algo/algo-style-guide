@@ -1,44 +1,44 @@
-import { useState } from "react";
-interface CustomRadioButtonProps {
+type RadioOption = {
   label: string;
+  value: string;
+};
+
+type RadioGroupProps = {
+  label?: string;
   name: string;
   value: string;
-  checked: boolean;
-  onChange: (value: string) => void;
-}
+  options: RadioOption[];
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+};
 
-export default function CustomRadioButton({
+export function RadioGroup({
   label,
   name,
   value,
-  checked,
+  options,
   onChange,
-}: CustomRadioButtonProps) {
+  error,
+}: RadioGroupProps) {
   return (
-    <label className="flex items-center gap-2 cursor-pointer select-none">
-      <span
-        role="radio"
-        aria-checked={checked}
-        tabIndex={0}
-        onClick={() => onChange(value)}
-        onKeyDown={(e) =>
-          (e.key === "Enter" || e.key === " ") && onChange(value)
-        }
-        className={`w-5 h-5 rounded-full border-2 transition-all flex items-center justify-center
-            ${checked ? "bg-indigo-600 border-indigo-600" : "border-indigo-500"}
-            focus:outline-none focus:ring-2 focus:ring-indigo-300`}
-      >
-        {checked && <span className="w-2.5 h-2.5 bg-white rounded-full"></span>}
-      </span>
-      <span className="text-indigo-800 font-medium">{label} </span>
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        className="hidden"
-        checked={checked}
-        onChange={() => onChange(value)}
-      />
-    </label>
+    <div className="w-full mb-4">
+      {label && <p className="block text-sm font-medium mb-2">{label}</p>}
+      <div className="space-y-2">
+        {options.map((opt) => (
+          <label key={opt.value} className="flex items-center space-x-2">
+            <input
+              type="radio"
+              name={name}
+              value={opt.value}
+              checked={value === opt.value}
+              onChange={onChange}
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+            />
+            <span className="text-sm text-gray-700">{opt.label}</span>
+          </label>
+        ))}
+      </div>
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
   );
 }

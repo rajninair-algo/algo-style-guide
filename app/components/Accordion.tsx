@@ -23,14 +23,14 @@ export default function Accordion({ items }: AccordionProps) {
         <div key={index}>
           <button
             type="button"
-            className="flex w-full items-center justify-between px-4 py-3 text-left font-medium text-gray-800 hover:bg-indigo-50 focus:outline-none"
+            className="flex w-full items-center justify-between px-4 py-3 text-left font-medium text-gray-800 hover:bg-primary-light focus:outline-none"
             onClick={() => toggle(index)}
           >
             {item.title}
             <ChevronDown
               className={`h-5 w-5 transform transition-transform duration-300 ${
                 openIndex === index
-                  ? "rotate-180 text-indigo-600"
+                  ? "rotate-180 text-primary"
                   : "text-gray-500"
               }`}
             />
