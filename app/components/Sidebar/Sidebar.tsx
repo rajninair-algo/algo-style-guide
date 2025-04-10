@@ -22,30 +22,48 @@ const Sidebar = ({ children }: SidebarProps) => {
   const location = useLocation();
 
   return (
-    <aside className="h-screen flex flex-col bg-background border-r shadow-sm">
-      <nav className="h-full flex flex-col bg-surface border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-between items-center">
+    <aside className="h-screen flex flex-col bg-secondary border-r shadow-sm">
+      <nav className="h-full flex flex-col  border-r shadow-sm">
+        {/* Logo */}
+        <div className="p-4 pb-2 flex justify-between items-center relative">
           <Link to="/dashboard">
-            <img
+            {/* <h3
+              className={`overflow-hidden transition-all ${
+                expanded ? "w-32" : "w-0"
+              }`}
+            >
+              ALGORISYS
+            </h3> */}
+            {expanded && (
+              <h3 className="font-bold text-2xl text-primary">ALGORISYS</h3>
+            )}
+            {!expanded && (
+              <h3 className="font-bold text-2xl text-primary">A</h3>
+            )}
+
+            {/* <img
               src="https:/img.logoipsum.com/243.svg"
               alt="logo"
               className={`overflow-hidden transition-all ${
                 expanded ? "w-32" : "w-0"
               }`}
-            />
+            /> */}
           </Link>
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-white border  text-primary hover:bg-accent hover:text-white"
+            className={`p-1.5 rounded-lg bg-white border  text-primary hover:bg-accent hover:text-white relative ${
+              !expanded &&
+              "rounded-l-0 rounded-r-lg -right-[3.5rem] -top-[.5rem] z-30"
+            } `}
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
         </div>
 
-        <SidebarContext.Provider value={{ expanded }}>
+        {/* Menu list */}
+        <SidebarContext.Provider value={{ expanded, setExpanded }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
-
 
         {/* Footer Details */}
         <div className="border-t border-muted-light flex p-3">

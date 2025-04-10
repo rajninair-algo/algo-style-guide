@@ -13,8 +13,9 @@ import { useState } from "react";
 import FileUpload from "~/components/FileUpload";
 import { TemplateBlock } from "~/components/TemplateBlock";
 import Accordion from "~/components/Accordion";
-import { PrimaryButton } from "~/components/buttons/PrimaryButton";
+import { Button } from "~/components/buttons/Buttons";
 import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
+import { UploadCloud } from "lucide-react";
 
 // app/routes/dashboard.tasks.tsx
 export default function Templates() {
@@ -52,7 +53,7 @@ export default function Templates() {
       {/* Usage */}
       <h4 className="text-5xl mb-4 underline pb-4">Form Fields</h4>
 
-      <div className="copiable">
+      <div className="copiable hidden">
         <Title>Register</Title>
         <Subtitle>Join Us</Subtitle>
         <SectionTitle>Personal Info</SectionTitle>
@@ -258,16 +259,56 @@ export default function Templates() {
 
           <br />
           <br />
-          <PrimaryButton onClick={handleClick} variant="primary" size="md">
+          <Button onClick={handleClick} variant="primary" size="md">
             primary md
-          </PrimaryButton>
+          </Button>
 
           {/* tes */}
-          <PrimaryButton onClick={handleClick} variant="outline" size="xl">
-            outline xl
-          </PrimaryButton>
         </form>
+
+        <h4>Testing</h4>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button onClick={handleClick} variant="outline" size="xl">
+            outline xl
+          </Button>
+          <Button variant="primary">primary</Button>
+          <Button variant="danger">danger</Button>
+          <Button onClick={handleClick} size="xs" variant="primary">
+            xs
+          </Button>
+          <Button variant="secondary" onClick={handleClick}>
+            secondary
+          </Button>
+
+          <Button icon={<UploadCloud size={16} />} variant="primary">
+            Upload
+          </Button>
+        </div>
       </div>
+
+      {/* Testing */}
+      <h3>Testing</h3>
+      <form action="">
+        <Input
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          error="Email is required"
+        />
+        <FormFieldWrapper label="Upload Profile Picture">
+          <FileUpload name="profilePic" accept="image/*" showPreview />
+        </FormFieldWrapper>
+        <br />
+
+        <FormFieldWrapper>
+          <Input
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            error="Email is required"
+          />
+        </FormFieldWrapper>
+      </form>
     </div>
   );
 }

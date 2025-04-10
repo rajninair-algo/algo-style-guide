@@ -1,4 +1,4 @@
-import { PrimaryButton } from "~/components/buttons/PrimaryButton";
+import { Button } from "~/components/buttons/Buttons";
 import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { TemplateBlock } from "~/components/TemplateBlock";
@@ -23,11 +23,11 @@ export default function ButtonDemo() {
           {sizes.map((size) => (
             <TemplateBlock
               key={size}
-              code={`<PrimaryButton onClick={handleClick}  size=\"${size}\">${size.toUpperCase()}</PrimaryButton>`}
+              code={`<Button onClick={handleClick}  size=\"${size}\">${size.toUpperCase()}</Button>`}
             >
-              <PrimaryButton onClick={handleClick} size={size as any}>
+              <Button onClick={handleClick} size={size as any}>
                 {size.toUpperCase()}
-              </PrimaryButton>
+              </Button>
             </TemplateBlock>
           ))}
         </div>
@@ -43,51 +43,43 @@ export default function ButtonDemo() {
             {sizes.map((size) => (
               <TemplateBlock
                 key={`${variant}-${size}`}
-                code={`<PrimaryButton onClick={handleClick} variant=\"${variant}\" size=\"${size}\">${variant} ${size}</PrimaryButton>`}
+                code={`<Button onClick={handleClick} variant=\"${variant}\" size=\"${size}\">${variant} ${size}</Button>`}
               >
-                <PrimaryButton
+                <Button
                   onClick={handleClick}
                   variant={variant as any}
                   size={size as any}
                 >
                   {variant} {size}
-                </PrimaryButton>
+                </Button>
               </TemplateBlock>
             ))}
 
             <TemplateBlock
-              code={`<PrimaryButton onClick={handleClick} variant=\"${variant}\" disabled>Disabled</PrimaryButton>`}
+              code={`<Button onClick={handleClick} variant=\"${variant}\" disabled>Disabled</Button>`}
             >
-              <PrimaryButton
-                onClick={handleClick}
-                variant={variant as any}
-                disabled
-              >
+              <Button onClick={handleClick} variant={variant as any} disabled>
                 Disabled
-              </PrimaryButton>
+              </Button>
             </TemplateBlock>
 
             <TemplateBlock
-              code={`<PrimaryButton onClick={handleClick} variant=\"${variant}\" loading>Loading</PrimaryButton>`}
+              code={`<Button onClick={handleClick} variant=\"${variant}\" loading>Loading</Button>`}
             >
-              <PrimaryButton
-                onClick={handleClick}
-                variant={variant as any}
-                loading
-              >
+              <Button onClick={handleClick} variant={variant as any} loading>
                 Loading
-              </PrimaryButton>
+              </Button>
             </TemplateBlock>
 
             <TemplateBlock
-              code={`<PrimaryButton onClick={handleClick} variant=\"${variant}\" icon={<Plus />}>With Icon</PrimaryButton>`}
+              code={`<Button onClick={handleClick} variant=\"${variant}\" icon={<Plus />}>With Icon</Button>`}
             >
-              <PrimaryButton
+              <Button
                 variant={variant as any}
                 icon={<Plus className="h-4 w-4" />}
               >
                 With Icon
-              </PrimaryButton>
+              </Button>
             </TemplateBlock>
           </div>
         </section>

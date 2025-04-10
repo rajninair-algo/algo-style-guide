@@ -23,12 +23,12 @@ const Dashboard = () => {
       icon: BarChart3,
       text: "Layouts",
       children: [
-        { text: "Normal Table", to: "dashboard/layout1" },
-        { text: "DataTable", to: "dashboard/layout2" },
-        { text: "DataTable with Filters", to: "dashboard/layout3" },
+        { text: "Layout One", to: "dashboard/layout1" },
+        { text: "Layout Two", to: "dashboard/layout2" },
+        { text: "Layout Three", to: "dashboard/layout3" },
       ],
     },
-    { icon: BarChart3, text: "Form Elements", to: "statistics" },
+    // { icon: BarChart3, text: "Form Elements", to: "dashboard/form-elements" },
     {
       icon: UserCircle,
       text: "Table",
@@ -48,7 +48,19 @@ const Dashboard = () => {
         },
       ],
     },
-    { icon: Boxes, text: "Buttons", to: "dashboard/buttons" },
+
+    {
+      icon: UserCircle,
+      text: "Form Elements",
+      children: [
+        {
+          text: "Buttons",
+          to: "dashboard/button-options",
+        },
+        { text: "Form Fields", to: "dashboard/form-elements" },
+      ],
+    },
+
     { icon: Settings, text: "Dropdown", to: "dashboard/settings" },
     { icon: LifeBuoy, text: "Checkbox", to: "dashboard/dynamic-checkboxes" },
     { icon: LifeBuoy, text: "RadioButtons", to: "dashboard/help" },
@@ -81,7 +93,6 @@ const Dashboard = () => {
                 icon={Icon}
                 text={item.text}
                 to={item.to}
-                alert={item.alert}
               />
             );
           })}

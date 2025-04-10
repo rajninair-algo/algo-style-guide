@@ -11,13 +11,7 @@ interface ISidebarItemProps {
   children?: ReactNode;
 }
 
-const SidebarItem = ({
-  icon: Icon,
-  text,
-  to,
-  alert = false,
-  children,
-}: ISidebarItemProps) => {
+const SidebarItem = ({ icon: Icon, text, to, children }: ISidebarItemProps) => {
   const { expanded } = useContext(SidebarContext)!;
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -40,23 +34,32 @@ const SidebarItem = ({
       ? "bg-accent text-white"
       : "bg-secondary text-muted hover:bg-primary-light hover:text-primary-dark"
   }`;
+  const iconCenterNotExpanded = ` ${expanded ? "" : "justify-center"}`;
 
   const content = (
     <>
       <Icon className={active ? "text-white" : "text-muted"} />
+      {/* Menu Text */}
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-2" : "w-0"
+          expanded ? "w-52 ml-2 text-sm" : "w-0"
         }`}
       >
         {text}
       </span>
-      {alert && (
+
+      {/* Show menu name on hover when sidebar is closed */}
+      {!expanded && (
         <div
-          className={`absolute right-2 w-2 h-2 rounded-full bg-accent ${
-            expanded ? "" : "top-2"
-          }`}
-        />
+          className={`
+          absolute left-full rounded-md px-2 py-1 ml-6
+          bg-black text-white text-sm
+          invisible opacity-20 -translate-x-3 transition-all
+          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 group-hover:z-10
+      `}
+        >
+          {text}
+        </div>
       )}
       {hasChildren && expanded && (
         <span className={`ml-auto ${active ? "text-white" : "text-muted"}`}>
@@ -69,12 +72,15 @@ const SidebarItem = ({
   return (
     <>
       {hasChildren ? (
-        <li className={baseClasses} onClick={() => setOpen(!open)}>
+        <li
+          className={baseClasses + iconCenterNotExpanded}
+          onClick={() => setOpen(!open)}
+        >
           {content}
         </li>
       ) : (
         <Link to={`/${to}`}>
-          <li className={baseClasses}>{content}</li>
+          <li className={baseClasses + iconCenterNotExpanded}>{content}</li>
         </Link>
       )}
 
