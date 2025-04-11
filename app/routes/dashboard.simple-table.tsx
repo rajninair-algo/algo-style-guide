@@ -2,10 +2,9 @@ import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import SimpleTable from "~/components/Table/SimpleTable"; // use your actual path
-import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
-import PaginationStyle_2 from "~/components/Table/PaginationStyle_2";
 import { useState } from "react";
 import { TemplateBlock } from "~/components/TemplateBlock";
+import PaginationStyle_1 from "~/components/Table/PaginationStyle_1";
 
 export const loader: LoaderFunction = async () => {
   const data = [
@@ -128,7 +127,10 @@ export default function TablePage() {
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
-
+  const handleDelete = (id) => {
+    console.log("Handle Delete", id);
+    alert("Delete id", id);
+  };
   const totalPages = Math.ceil(data.length / rowsPerPage);
   return (
     <div className="p-8 max-w-5xl mx-auto">
@@ -139,17 +141,17 @@ export default function TablePage() {
         code={` <SimpleTable
           data={paginatedData}
           size="sm"
-          onView={(row) => console.log("View", row)}
-          onEdit={(row) => console.log("Edit", row)}
+         viewURL="/dff"
+         editURL="/"
           onDelete={(row) => console.log("Delete", row)}
         />`}
       >
         <SimpleTable
           data={paginatedData}
           size="sm"
-          onView={(row) => console.log("View", row)}
-          onEdit={(row) => console.log("Edit", row)}
-          onDelete={(row) => console.log("Delete", row)}
+          viewURL={(row) => `/users/${row.id}`}
+          editURL={(row) => `/users/${row.id}/edit`}
+          onDelete={(row) => handleDelete(row.id)}
         />
       </TemplateBlock>
 
@@ -161,17 +163,17 @@ export default function TablePage() {
         code={`<SimpleTable
           data={paginatedData}
           size="md"
-          onView={(row) => console.log("View", row)}
-          onEdit={(row) => console.log("Edit", row)}
+         viewURL="dff"
+         editURL="/"
           onDelete={(row) => console.log("Delete", row)}
         />`}
       >
         <SimpleTable
           data={paginatedData}
           size="md"
-          onView={(row) => console.log("View", row)}
-          onEdit={(row) => console.log("Edit", row)}
-          onDelete={(row) => console.log("Delete", row)}
+          viewURL={(row) => `/users/${row.id}`}
+          editURL={(row) => `/users/${row.id}/edit`}
+          onDelete={(row) => handleDelete(row.id)}
         />
       </TemplateBlock>
 
@@ -191,30 +193,20 @@ export default function TablePage() {
         <SimpleTable
           data={paginatedData}
           size="lg"
-          onView={(row) => console.log("View", row)}
-          onEdit={(row) => console.log("Edit", row)}
-          onDelete={(row) => console.log("Delete", row)}
+          viewURL={(row) => `/users/${row.id}`}
+          editURL={(row) => `/users/${row.id}/edit`}
+          onDelete={(row) => handleDelete(row.id)}
         />
       </TemplateBlock>
 
-      <br />
-
-      {/* Pagination style 1 */}
       <PaginationStyle_1
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        alignSide="center"
       />
-      <br />
-      <h5 className="text-4xl mb-4">Testing - copy and paste</h5>
 
-      <SimpleTable
-        data={paginatedData}
-        size="lg"
-        onView={(row) => console.log("View", row)}
-        onEdit={(row) => console.log("Edit", row)}
-        onDelete={(row) => console.log("Delete", row)}
-      />
+      <br />
     </div>
   );
 }

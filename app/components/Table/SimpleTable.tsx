@@ -1,32 +1,32 @@
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  country: string;
-  doj: string;
-};
+import { Link } from "@remix-run/react";
+import ButtonLink from "../buttons/ButtonLink";
 
-interface SimpleTableProps {
-  data: User[];
-  onView?: (row: User) => void;
-  onEdit?: (row: User) => void;
-  onDelete?: (row: User) => void;
-  size?: "sm" | "md" | "lg"; // 👈 new size prop
+interface SimpleTableProps<T> {
+  data?: T[];
+  onView?: (row: T) => void;
+  onEdit?: (row: T) => void;
+  onDelete?: (row: T) => void;
+  viewURL?: (row: T) => string;
+  editURL?: (row: T) => string;
+  size?: "sm" | "md" | "lg";
 }
 
-const sizeClasses = {
-  sm: "text-xs px-2 py-1",
-  md: "text-sm px-4 py-2",
-  lg: "text-base px-6 py-3",
-};
-
-const SimpleTable: React.FC<SimpleTableProps> = ({
-  data,
-  onView,
+const SimpleTable = <
+  T extends { id: number; name: string; email: string; doj: string }
+>({
+  data = [],
+  viewURL,
+  editURL,
   onEdit,
   onDelete,
-  size = "md", // default to medium
-}) => {
+  size = "md",
+}: SimpleTableProps<T>) => {
+  const sizeClasses = {
+    sm: "text-xs px-2 py-1",
+    md: "text-sm px-4 py-2",
+    lg: "text-base px-6 py-3",
+  };
+
   const cellClass = sizeClasses[size];
 
   return (
@@ -48,25 +48,29 @@ const SimpleTable: React.FC<SimpleTableProps> = ({
               <td className={cellClass}>{row.name}</td>
               <td className={cellClass}>{row.email}</td>
               <td className={cellClass}>{row.doj}</td>
-              <td className={`${cellClass} space-x-2`}>
-                <button
-                  onClick={() => onView?.(row)}
-                  className="text-[#7c4dff] hover:underline"
-                >
-                  View
-                </button>
-                <button
-                  onClick={() => onEdit?.(row)}
-                  className="text-[#7c4dff] hover:underline"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => onDelete?.(row)}
-                  className="text-red-500 hover:underline"
-                >
-                  Delete
-                </button>
+
+              <td className={`${cellClass}`}>
+                <div className="flex items-center gap-2">
+                  {viewURL && (
+                    <Link
+                      to={viewURL(row)}
+                      className="text-primary hover:underline"
+                    >
+                      View
+                    </Link>
+                  )}
+                  {editURL && (
+                    <Link
+                      to={editURL(row)}
+                      className="text-indigo-600 hover:underline"
+                    >
+                      Edit
+                    </Link>
+                  )}
+                  <ButtonLink onClick={() => onDelete?.(row)} variant="danger">
+                    Delete
+                  </ButtonLink>
+                </div>
               </td>
             </tr>
           ))}

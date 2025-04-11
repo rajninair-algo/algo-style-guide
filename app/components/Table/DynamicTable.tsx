@@ -3,6 +3,8 @@ import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import PaginationStyle_2 from "./PaginationStyle_2";
 import PaginationStyle_1 from "./PaginationStyle_1";
+import ButtonLink from "../buttons/ButtonLink";
+import { Link } from "@remix-run/react";
 
 type Column<T> = {
   key: keyof T;
@@ -64,6 +66,7 @@ export default function DynamicTable<T extends Record<string, any>>({
           }`}
         >
           <tr>
+            <div></div>
             <th className={cellClass}>Sr. No.</th>
             {columns.map((col) => (
               <th key={col.key as string} className={cellClass}>
@@ -90,13 +93,14 @@ export default function DynamicTable<T extends Record<string, any>>({
                   <input
                     type="text"
                     placeholder={`Search ${col.label}`}
-                    className={`mt-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#7c4dff] ${
-                      size === "sm"
-                        ? "text-xs px-2 py-1"
-                        : size === "lg"
-                        ? "text-base px-4 py-2"
-                        : "text-sm px-3 py-1.5"
-                    }`}
+                    className={`mt-2 w-full rounded border border-gray-300 focus:outline-none 
+                      focus:ring-1 focus:ring-primary text-black font-light ${
+                        size === "sm"
+                          ? "text-xs px-2 py-1"
+                          : size === "lg"
+                          ? "text-base px-4 py-2"
+                          : "text-sm px-3 py-1.5"
+                      }`}
                     value={searchTerms[col.key as string] || ""}
                     onChange={(e) =>
                       onSearchChange(col.key as string, e.target.value)
@@ -124,29 +128,16 @@ export default function DynamicTable<T extends Record<string, any>>({
               ))}
               {(onEdit || onView || onDelete) && (
                 <td className={`${cellClass} space-x-2`}>
-                  {onView && (
-                    <button
-                      onClick={() => onView(row)}
-                      className="text-[#7c4dff] hover:underline"
-                    >
-                      View
-                    </button>
-                  )}
-                  {onEdit && (
-                    <button
-                      onClick={() => onEdit(row)}
-                      className="text-[#7c4dff] hover:underline"
-                    >
-                      Edit
-                    </button>
-                  )}
+                  <Link to="#" className="text-primary hover:underline">
+                    View
+                  </Link>
+                  <Link to="#" className="text-primary hover:underline">
+                    Edit
+                  </Link>
                   {onDelete && (
-                    <button
-                      onClick={() => onDelete(row)}
-                      className="text-red-500 hover:underline"
-                    >
+                    <ButtonLink variant="danger" onClick={() => onDelete(row)}>
                       Delete
-                    </button>
+                    </ButtonLink>
                   )}
                 </td>
               )}

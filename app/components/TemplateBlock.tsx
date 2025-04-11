@@ -7,7 +7,7 @@ interface TemplateBlockProps {
 
 export function TemplateBlock({ children, code }: TemplateBlockProps) {
   return (
-    <div className="w-full flex items-end px-2 pb-2 pt-8 rounded-md border bg-white relative m-2">
+    <div className="w-full flex items-end py-[4rem] px-4   rounded-md   bg-white relative m-2">
       <div className="absolute top-2 right-2 flex items-center">
         <CopyButton code={code.trim()} />
       </div>

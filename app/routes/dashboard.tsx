@@ -63,6 +63,10 @@ const Dashboard = () => {
           to: "dashboard/checkboxes",
         },
         {
+          text: "Radio Buttons",
+          to: "dashboard/radio-buttons",
+        },
+        {
           text: "File Upload",
           to: "dashboard/fileupload",
         },
