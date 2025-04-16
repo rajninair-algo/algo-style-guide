@@ -67,6 +67,10 @@ const Dashboard = () => {
           to: "dashboard/radio-buttons",
         },
         {
+          text: "Popup",
+          to: "dashboard/popup",
+        },
+        {
           text: "File Upload",
           to: "dashboard/fileupload",
         },

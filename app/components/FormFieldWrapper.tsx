@@ -10,8 +10,8 @@ export default function FormFieldWrapper({
   direction = "horizontal", // default to horizontal
 }: Props) {
   return (
-    <div className="mb-4">
-      <label className="block text-lg capitalize font-medium text-gray-500 mb-2">
+    <div className="mb-2 mt-4">
+      <label className="block text-sm text-black font-medium capitalize mb-1">
         {label}
       </label>
       <div
